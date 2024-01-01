@@ -1,9 +1,24 @@
 const timerEl = document.getElementById('timer')
+const betBtn = document.getElementById('bet')
+const cashOutBtn = document.getElementById('out')
+const startBtn = document.getElementById('start')
+
+betBtn.addEventListener('click', placeBet)
+cashOutBtn.addEventListener('click', cashOut)
+startBtn.addEventListener('click', init)
+
 
 let timerIntervalId
 let min, sec, seconds = 0
+let startTime, endTime;
 
-startTimer()
+
+function init() {
+    startTimer()
+    randomStopTimer()
+}
+
+
 
 function startTimer() {
     if (timerIntervalId) {
@@ -21,9 +36,9 @@ function tick() {
 
 
 function renderTime() {
-    min = Math.floor(seconds / 60) 
+    min = Math.floor(seconds / 60) + 1
     sec = seconds % 60
-    
+
     if (sec < 10) {
         console.log(`${min}.0${sec}`)
         timerEl.textContent = `${min}.0${sec}`
@@ -41,7 +56,7 @@ function stopTimer() {
 
 
 function randomStopTimer() {
-    let randomStopTime = Math.floor(Math.random() * (10000 - 1000) + 1000); 
+    let randomStopTime = Math.floor(Math.random() * (5000 - 1000) + 1000);
     console.log(`${randomStopTime / 1000}`);
 
     timerId = setTimeout(() => {
@@ -51,4 +66,19 @@ function randomStopTimer() {
     }, randomStopTime);
 }
 
-randomStopTimer()
+
+
+function placeBet() {
+    startTime = performance.now()
+
+}
+
+function cashOut() {
+    endTime = performance.now()
+    let timeDiff = endTime - startTime
+    timeDiff /= 1000;
+
+
+
+    console.log(`cash out : ${min}.${sec}`)
+}
